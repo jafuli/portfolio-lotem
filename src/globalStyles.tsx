@@ -41,7 +41,14 @@ const globalStyles = css`
     padding: 0;
   }
 
+  html {
+    overflow: hidden;
+    height: 100%;
+  }
+
   body {
+    height: 100%;
+    overflow: auto;
     font-family: 'Matter', sans-serif;
     font-size: 16px;
     background-color: #f5f5f5;

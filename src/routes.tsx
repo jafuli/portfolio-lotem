@@ -2,6 +2,8 @@ import {Navigate, RouteObject} from "react-router-dom";
 import Layout from "./layout/Layout/Layout";
 import NotFound from "./pages/NotFound/NotFound.tsx";
 import Works from "./pages/Works/Works";
+import About from "./pages/About/About.tsx";
+import Contact from "./pages/Contact/Contact.tsx";
 
 const Routes: RouteObject[] = [
   {
@@ -26,18 +28,18 @@ const Routes: RouteObject[] = [
     ),
   },
   {
-    path: '/works/ge',
+    path: '/about',
     element: (
       <Layout>
-        <Works/>
+        <About/>
       </Layout>
     ),
   },
   {
-    path: '/blaaa',
+    path: '/contact',
     element: (
       <Layout>
-        <Works/>
+        <Contact/>
       </Layout>
     ),
   }
