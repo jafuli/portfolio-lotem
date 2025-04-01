@@ -1,0 +1,98 @@
+import {useRef, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
+import {css} from "@emotion/react";
+import {getIconByName} from "../../icon-cache.ts";
+import React from "react";
+
+const banners = [
+  {image: getIconByName("captain-credit-banner"), text: "Captain Credit", tags: ['Product design', 'UX/UI', 'SaaS']},
+  {image: getIconByName("obli-banner"), text: "Obli", tags: ['Product design', 'UX/UI', 'SaaS']},
+  {image: getIconByName("punct-banner"), text: "Punct", tags: ['Product design', 'UX/UI', 'SaaS']},
+  {image: getIconByName("superwise-banner"), text: "Superwise", tags: ['Product design', 'UX/UI', 'SaaS']},
+];
+
+const BannerSelector = () => {
+  const [index, setIndex] = useState(0);
+  const scrollTimeout = useRef<number | null>(null);
+
+  const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (scrollTimeout.current) return;
+
+    scrollTimeout.current = setTimeout(() => {
+      if (e.deltaY > 0) {
+        setIndex((prev) => (prev + 1) % banners.length);
+      } else {
+        setIndex((prev) => (prev - 1 + banners.length) % banners.length);
+      }
+      scrollTimeout.current = null;
+    }, 300); // Adjusted delay to reduce sensitivity
+  };
+
+  return (
+    <div
+      onWheel={handleScroll}
+      css={css`
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      `}
+    >
+      <AnimatePresence>
+        <motion.div
+          key={index}
+          initial={{opacity: 0, y: 50}}
+          animate={{opacity: 1, y: 0}}
+          exit={{opacity: 0, y: -50}}
+          transition={{duration: 0.5}}
+          css={css`
+            position: absolute;
+            text-align: center;
+          `}
+        >
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+            `}
+          >
+            {banners[index].image && React.createElement(banners[index].image)}
+          </div>
+          <div css={css`
+            display: flex;
+            margin-top: 12px;
+            justify-content: space-between;
+            align-items: center;
+          `}>
+            <div css={css`
+              display: flex;
+              gap: 8px;
+            `}>
+              {banners[index].tags.map(tag => (
+              <span css={css`
+                font-size: 0.875rem;
+                border: 1px solid #FFFDFD80;
+                border-radius: 10px;
+                padding: 8px 12px;
+              `}>{tag}</span>
+            ))}
+            </div>
+            <span css={css`color: white;
+              font-size: 1.25rem;
+              font-weight: 400;
+            `}>
+            {banners[index].text}
+          </span>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default BannerSelector;

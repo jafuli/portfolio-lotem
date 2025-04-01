@@ -1,7 +1,7 @@
 import {Navigate, RouteObject} from "react-router-dom";
 import Layout from "./layout/Layout/Layout";
 import NotFound from "./pages/NotFound/NotFound.tsx";
-import Works from "./pages/Works/Works.tsx";
+import Works from "./pages/Works/Works";
 
 const Routes: RouteObject[] = [
   {
@@ -19,8 +19,29 @@ const Routes: RouteObject[] = [
   },
   {
     path: '/works',
-    element: <Works/>,
+    element: (
+      <Layout>
+        <Works/>
+      </Layout>
+    ),
+  },
+  {
+    path: '/works/ge',
+    element: (
+      <Layout>
+        <Works/>
+      </Layout>
+    ),
+  },
+  {
+    path: '/blaaa',
+    element: (
+      <Layout>
+        <Works/>
+      </Layout>
+    ),
   }
+
   // children: [
   //     {
   //       path: 'superwise',

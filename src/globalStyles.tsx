@@ -24,7 +24,7 @@ const globalStyles = css`
   }
 
   :root {
-    --font-size: 17px;
+    --font-size: 16px;
     --primary-color: #0070f3;
     --secondary-color: #ff4081;
     --background-color: #f5f5f5;
@@ -40,6 +40,7 @@ const globalStyles = css`
     margin: 0;
     padding: 0;
   }
+
   body {
     font-family: 'Matter', sans-serif;
     font-size: 16px;
