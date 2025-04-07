@@ -1,5 +1,5 @@
 import {css} from "@emotion/react";
-import Button from "../../components/Button/Button.tsx";
+import ExternalLink from "../../components/ExternalLink/ExternalLink.tsx";
 
 const Footer = () => {
   return (
@@ -12,8 +12,8 @@ const Footer = () => {
         height: 5.125rem;
         padding: 1.25rem;
       `}>
-        <Button buttonName={'Instagram'}/>
-        <Button buttonName={'Linkedin'}/>
+        <ExternalLink link={'https://www.instagram.com/lottie______s/'} buttonName={'Instagram'}/>
+        <ExternalLink link={'https://www.linkedin.com/in/lotemsha'} buttonName={'Linkedin'}/>
       </div>
     </>
   );

@@ -1,15 +1,13 @@
 import {css} from "@emotion/react";
 import {useTheme} from "../../contexts/ThemeContext/ThemeContext.tsx";
-import {useNavigate} from "react-router-dom";
 
-type ButtonProps = {
+type ExternalLinkProps = {
   buttonName: string;
-  route: string;
+  link: string;
 }
 
-const Button: React.FC<ButtonProps> = ({buttonName, route}) => {
+const ExternalLink: React.FC<ExternalLinkProps> = ({buttonName, link}) => {
   const {theme} = useTheme();
-  const navigate = useNavigate();
 
   const buttonBase = css`
     background: none;
@@ -19,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({buttonName, route}) => {
     color: ${theme.textColor};
     cursor: pointer;
     transition: color 0.3s ease;
+    text-decoration: none;
 
     &:hover {
       opacity: 0.8;
@@ -30,8 +29,13 @@ const Button: React.FC<ButtonProps> = ({buttonName, route}) => {
   `;
 
   return (
-    <button onClick={() => navigate(route)} css={buttonBase}>{buttonName}</button>
+    <a href={link}
+       target="_blank"
+       rel="noopener noreferrer"
+       css={buttonBase}>
+      {buttonName}
+    </a>
   );
 }
 
-export default Button;
+export default ExternalLink;
