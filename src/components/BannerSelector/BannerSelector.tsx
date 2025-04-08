@@ -13,20 +13,25 @@ const banners = [
 
 const BannerSelector = () => {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const scrollTimeout = useRef<number | null>(null);
 
   const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     if (scrollTimeout.current) return;
 
+    const delta = e.deltaY;
+    setDirection(delta > 0 ? 1 : -1);
+
     scrollTimeout.current = setTimeout(() => {
-      if (e.deltaY > 0) {
-        setIndex((prev) => (prev + 1) % banners.length);
-      } else {
-        setIndex((prev) => (prev - 1 + banners.length) % banners.length);
-      }
+      setIndex((prev) => {
+        const next = delta > 0 ? (prev + 1) % banners.length : (prev - 1 + banners.length) % banners.length;
+        return next;
+      });
       scrollTimeout.current = null;
-    }, 300); // Adjusted delay to reduce sensitivity
+    }, 300);
   };
+
+  const BannerComponent = banners[index].image;
 
   return (
     <div
@@ -41,16 +46,18 @@ const BannerSelector = () => {
         position: relative;
       `}
     >
-      <AnimatePresence>
+
+      <AnimatePresence mode="wait">
         <motion.div
-          key={index}
-          initial={{opacity: 0, y: 50}}
+          key={banners[index].text}
+          initial={{opacity: 0, y: direction > 0 ? 50 : -50}}
           animate={{opacity: 1, y: 0}}
-          exit={{opacity: 0, y: -50}}
+          exit={{opacity: 0, y: direction > 0 ? -50 : 50}}
           transition={{duration: 0.5}}
           css={css`
             position: absolute;
             text-align: center;
+            z-index: 1;
           `}
         >
           <div
@@ -61,7 +68,7 @@ const BannerSelector = () => {
               height: 100%;
             `}
           >
-            {banners[index].image && React.createElement(banners[index].image)}
+            {BannerComponent && <BannerComponent />}
           </div>
           <div css={css`
             display: flex;
@@ -74,20 +81,26 @@ const BannerSelector = () => {
               gap: 8px;
             `}>
               {banners[index].tags.map(tag => (
-              <span css={css`
-                font-size: 0.875rem;
-                border: 1px solid #FFFDFD80;
-                border-radius: 10px;
-                padding: 8px 12px;
-              `}>{tag}</span>
-            ))}
+                <span
+                  key={`${banners[index].text}-${tag}`}
+                  css={css`
+                    font-size: 0.875rem;
+                    border: 1px solid #FFFDFD80;
+                    border-radius: 10px;
+                    padding: 8px 12px;
+                  `}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            <span css={css`color: white;
+            <span css={css`
+              color: white;
               font-size: 1.25rem;
               font-weight: 400;
             `}>
-            {banners[index].text}
-          </span>
+              {banners[index].text}
+            </span>
           </div>
         </motion.div>
       </AnimatePresence>
