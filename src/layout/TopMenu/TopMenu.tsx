@@ -8,7 +8,7 @@ const TopMenu = () => {
   const {theme} = useTheme();
   const navigate = useNavigate();
 
-  const IconComponent = getIconByName(theme.darkTheme ? 'logo-lotem' : 'logo-lotem-dark'); // TODO: conditionally render dark/light icon based on location.pathname from useLocation()
+  const IconComponent = getIconByName(theme.darkTheme ? 'logo-lotem' : 'logo-lotem-dark');
 
   return (
     <>

@@ -46,6 +46,29 @@ const BannerSelector = () => {
         position: relative;
       `}
     >
+      {/* Animated Ghost Cards */}
+      {[...Array(3)].map((_, i) => (
+        <motion.div
+          key={`ghost-${i}-${index}`}
+          initial={{opacity: 0, y: direction > 0 ? 50 : -50}}
+          animate={{opacity: 0.08, y: 0}}
+          exit={{opacity: 0, y: direction > 0 ? -50 : 50}}
+          transition={{duration: 0.5, delay: i * 0.1}}
+          css={css`
+            position: absolute;
+            width: ${60 - i * 8}%;
+            height: ${60 - i * 8}%;
+            background: red;
+            border: 1px solid rebeccapurple;
+            border-radius: 16px;
+            top: ${i * 2}%;
+            //left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            //filter: blur(${(i + 1) * 1.2}px);
+          `}
+        />
+      ))}
 
       <AnimatePresence mode="wait">
         <motion.div

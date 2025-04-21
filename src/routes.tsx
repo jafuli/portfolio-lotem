@@ -4,73 +4,58 @@ import NotFound from "./pages/NotFound/NotFound.tsx";
 import Works from "./pages/Works/Works";
 import About from "./pages/About/About.tsx";
 import Contact from "./pages/Contact/Contact.tsx";
+import Superwise from "./pages/Works/Superwise.tsx";
 
 const Routes: RouteObject[] = [
   {
     path: '',
-    element: (
-      <Layout>
-        <Navigate to="/works" replace/>
-      </Layout>
-    ),
-    errorElement: (
-      <Layout>
-        <NotFound/>
-      </Layout>
-    ),
-  },
-  {
-    path: '/works',
-    element: (
-      <Layout>
-        <Works/>
-      </Layout>
-    ),
-  },
-  {
-    path: '/about',
-    element: (
-      <Layout>
-        <About/>
-      </Layout>
-    ),
-  },
-  {
-    path: '/contact',
-    element: (
-      <Layout>
-        <Contact/>
-      </Layout>
-    ),
-  }
+    element: <Layout />,
+    errorElement: <Layout><NotFound /></Layout>,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/works" replace />,
+      },
+      {
+        path: 'works',
+        children: [
+          {
+            index: true,
+            element: <Works />,
+          },
+          {
+            path: 'superwise',
+            element: <Superwise />,
+          },
+          // {
+          //   path: 'captain-credit',
+          //   element: <CaptainCredit />,
+          // },
+          // {
+          //   path: 'punct',
+          //   element: <Punct />,
+          // },
+          // {
+          //   path: 'obli',
+          //   element: <Obli />,
+          // },
+        ],
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
+      },
+      {
+        path: '*',
+        element: <NotFound />
+      }
 
-  // children: [
-  //     {
-  //       path: 'superwise',
-  //       element: <Superwise/>
-  //     },
-  //     {
-  //       path: 'captain-credit',
-  //       element: <CaptainCredit/>
-  //     },
-  //     {
-  //       path: 'punct',
-  //       element: <Punct/>
-  //     },
-  //     {
-  //       path: 'obli',
-  //       element: <Obli/>
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/about',
-  //   element: <About/>
-  // },
-  // {
-  //   path: '/contact',
-  //   element: <Contact/>
-  // },
+    ],
+  },
 ];
 
 export default Routes;

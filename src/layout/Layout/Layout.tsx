@@ -8,7 +8,7 @@ import {ThemeProvider, useTheme} from "../../contexts/ThemeContext/ThemeContext.
 const Layout = ({children}: { children?: ReactNode }) => {
 
   return (
-    <ThemeProvider> {/* ✅ Now wraps each Layout instance */}
+    <ThemeProvider>
       <ThemedLayout>{children !== undefined ? children : <Outlet/>}</ThemedLayout>
     </ThemeProvider>
   );
@@ -39,7 +39,7 @@ const Layout = ({children}: { children?: ReactNode }) => {
           >
             {children !== undefined ? children : <Outlet />}
           </div>
-          <Footer/>
+          {theme.darkTheme && <Footer/>}
         </div>
       </>
     );

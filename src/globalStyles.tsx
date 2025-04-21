@@ -25,10 +25,10 @@ const globalStyles = css`
 
   :root {
     --font-size: 16px;
-    --primary-color: #0070f3;
-    --secondary-color: #ff4081;
-    --background-color: #f5f5f5;
-    --text-color: #333;
+    //--primary-color: #0070f3;
+    //--secondary-color: #ff4081;
+    //--background-color: #f5f5f5;
+    //--text-color: #333;
   }
 
   body {
@@ -51,9 +51,8 @@ const globalStyles = css`
     overflow: auto;
     font-family: 'Matter', sans-serif;
     font-size: 16px;
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
+    background-color: #fff;
+    line-height: 1.4;
   }
 `;
 
