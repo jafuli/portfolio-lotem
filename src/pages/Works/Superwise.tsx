@@ -1,7 +1,9 @@
 import {getIconByName} from "../../icon-cache.ts";
 import {css} from "@emotion/react";
+import {useNavigate} from "react-router-dom";
 
 const Superwise = () => {
+  const navigate = useNavigate();
   const Bullet = getIconByName('bullet');
   const Hero = getIconByName('superwise-hero');
   const Figure1 = getIconByName('superwise-figure1');
@@ -30,6 +32,7 @@ const Superwise = () => {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            flex: 1;
           `}>
             <h3>Overview</h3>
             <p>Superwise is an AI reliability platform that helps companies to govern their AI systems and machine
@@ -41,6 +44,7 @@ const Superwise = () => {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            flex: 1;
           `}>
             <h3>Role</h3>
             <p>As the Principal Lead Product Designer, I led the UX and UI for the entire product from the ground up. I
@@ -239,14 +243,24 @@ const Superwise = () => {
         `}>
           <h4>The results</h4>
           <p css={css`
-            font-size: 1.5rem
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 13px 88px;
+            border: 1px solid #ECECEC;
+            border-radius: 0.5rem;
           `}>
             Working on the platform allowed me to deliver an entirely new experience, enhancing client engagement and
             ultimately leading to Superwise’s acquisition by BlattnerTech Technologies. Since then, I have been working
             on various products within the larger organization, focusing on aligning product UX/UI standards and
             practices globally while continuing my design work on the Superwise product.</p>
         </div>
-        <h1 css={css`font-size: 2.5rem`}>NEXT PROJECT</h1>
+        <button onClick={() => navigate('/works/captain-credit')} css={css`
+          font-size: 2.5rem;
+          font-weight: 700;
+          background: none;
+          border: none;
+          cursor: pointer;
+        `}>NEXT PROJECT</button>
       </div>
     </>
   )
