@@ -1,20 +1,64 @@
-import {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import {css} from "@emotion/react";
 import {getIconByName} from "../../icon-cache.ts";
-import React from "react";
+import {useNavigate} from "react-router-dom";
 
-const banners = [
-  {image: getIconByName("captain-credit-banner"), text: "Captain Credit", tags: ['Product design', 'UX/UI', 'SaaS']},
-  {image: getIconByName("obli-banner"), text: "Obli", tags: ['Product design', 'UX/UI', 'SaaS']},
-  {image: getIconByName("punct-banner"), text: "Punct", tags: ['Product design', 'UX/UI', 'SaaS']},
-  {image: getIconByName("superwise-banner"), text: "Superwise", tags: ['Product design', 'UX/UI', 'SaaS']},
+type BannerSelectorProps = {
+  filter: string;
+}
+
+type BannerObject = {
+  image: React.FC<React.SVGProps<SVGSVGElement>>;
+  text: string;
+  tags: string[];
+  path: string;
+}
+
+const bannersList: BannerObject[] = [
+  {
+    image: getIconByName("captain-credit-banner"),
+    text: "Captain Credit",
+    tags: ['Product design', 'UX/UI', 'SaaS'],
+    path: 'captain-credit'
+  },
+  {
+    image: getIconByName("obli-banner"),
+    text: "Obli",
+    tags: ['Product design', 'UX/UI', 'SaaS'],
+    path: 'obli'
+  },
+  {
+    image: getIconByName("punct-banner"),
+    text: "Punct",
+    tags: ['Product design', 'UX/UI', 'SaaS'],
+    path: 'punct'
+  },
+  {
+    image: getIconByName("superwise-banner"),
+    text: "Superwise",
+    tags: ['Product design', 'UX/UI', 'SaaS'],
+    path: 'superwise'
+  },
 ];
 
-const BannerSelector = () => {
+const BannerSelector: React.FC<BannerSelectorProps> = ({filter}) => {
+  const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [banners, setBanners] = useState<BannerObject[]>(bannersList);
   const scrollTimeout = useRef<number | null>(null);
+
+  useEffect(() => {
+    const filteredBanners = () => {
+      setIndex(0);
+      if (filter === 'Product design') return bannersList.filter(banner => banner.text !== 'Obli');
+      if (filter === 'Branding') return bannersList.filter(banner => banner.text === 'Obli');
+      return bannersList;
+    }
+
+    setBanners(filteredBanners);
+  }, [filter]);
 
   const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     if (scrollTimeout.current) return;
@@ -30,6 +74,10 @@ const BannerSelector = () => {
       scrollTimeout.current = null;
     }, 300);
   };
+
+  const onNavigate = (path: string) => {
+    navigate(path);
+  }
 
   const BannerComponent = banners[index].image;
 
@@ -65,7 +113,7 @@ const BannerSelector = () => {
             //left: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
-            //filter: blur(${(i + 1) * 1.2}px);
+              //filter: blur(${(i + 1) * 1.2}px);
           `}
         />
       ))}
@@ -91,7 +139,13 @@ const BannerSelector = () => {
               height: 100%;
             `}
           >
-            {BannerComponent && <BannerComponent />}
+            {BannerComponent && <BannerComponent
+              onClick={() => {
+                onNavigate(banners[index].path);
+              }}
+              css={css`
+                cursor: pointer;
+              `}/>}
           </div>
           <div css={css`
             display: flex;

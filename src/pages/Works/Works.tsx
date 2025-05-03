@@ -1,8 +1,10 @@
 import {css} from "@emotion/react";
 import WorksMenu from "../../components/WorksMenu/WorksMenu.tsx";
 import BannerSelector from "../../components/BannerSelector/BannerSelector.tsx";
+import {useState} from "react";
 
 const Works = () => {
+  const [selectedFilter, setSelectedFilter] = useState<string>('All works');
 
   const worksContainer = css`
     display: flex;
@@ -12,11 +14,15 @@ const Works = () => {
     height: 100%;
   `;
 
+  const handleFilterClick = (filterName: string) => {
+    setSelectedFilter(filterName);
+  }
+
   return (
     <>
       <div css={worksContainer}>
-        <WorksMenu/>
-        <BannerSelector/>
+        <WorksMenu activeFilter={selectedFilter} onFilter={handleFilterClick}/>
+        <BannerSelector filter={selectedFilter}/>
       </div>
     </>
   );

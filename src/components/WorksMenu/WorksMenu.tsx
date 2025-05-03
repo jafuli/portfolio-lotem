@@ -1,7 +1,14 @@
 import {css} from "@emotion/react";
 import FilterButton from "../FilterButton/FilterButton.tsx";
+import React from "react";
 
-const WorksMenu = () => {
+type WorksMenuProps = {
+  activeFilter?: string;
+  onFilter: (filterName: string) => void;
+}
+
+const WorksMenu: React.FC<WorksMenuProps> = ({activeFilter, onFilter}) => {
+  const filters = ['All works', 'Product design', 'Branding'] as const;
   const menuContainer = css`
     display: flex;
     flex-direction: column;
@@ -15,10 +22,14 @@ const WorksMenu = () => {
 
   return (
     <div css={menuContainer}>
-      <FilterButton filterName={'All works'}/>
-      <FilterButton filterName={'Product design'}/>
-      <FilterButton filterName={'Branding'}/>
-      <FilterButton filterName={'Others'}/>
+      {filters.map(filter => (
+        <FilterButton
+          key={filter}
+          filterName={filter}
+          onFilterClick={onFilter}
+          isActive={activeFilter === filter}
+        />
+      ))}
     </div>
   );
 }
