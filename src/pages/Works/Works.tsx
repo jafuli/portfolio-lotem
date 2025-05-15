@@ -11,7 +11,9 @@ const Works = () => {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    height: 100%;
+    //height: 100%;
+    flex: 1;
+    position: relative;
   `;
 
   const handleFilterClick = (filterName: string) => {

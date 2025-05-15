@@ -18,6 +18,8 @@ const WorksMenu: React.FC<WorksMenuProps> = ({activeFilter, onFilter}) => {
     padding: 20px;
     min-width: 200px;
     height: 100%;
+    left: 40px;
+    position: absolute;
   `;
 
   return (

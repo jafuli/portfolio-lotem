@@ -23,6 +23,7 @@ const Layout = ({children}: { children?: ReactNode }) => {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            //height: 100%;
             background-color: ${theme.background};
             color: ${theme.textColor};
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -35,6 +36,7 @@ const Layout = ({children}: { children?: ReactNode }) => {
               display: flex;
               flex-direction: column;
               justify-content: center;
+              position: relative;
             `}
           >
             {children !== undefined ? children : <Outlet />}
